@@ -3,8 +3,7 @@
 <?php $__env->startSection('content'); ?>
 <div class="card narrow-card" style="max-width: 400px; margin: 4rem auto;">
     <div style="text-align: center; margin-bottom: 2rem;">
-        <div class="eyebrow">AUTHENTICATION</div>
-        <h1>Admin Login</h1>
+        <h1>Admin</h1>
         <p class="muted">Sign in to access the administrator panel.</p>
     </div>
 

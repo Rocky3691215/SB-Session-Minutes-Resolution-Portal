@@ -36,14 +36,22 @@
                 <td><?php echo e($document->is_public ? 'Public' : 'Private'); ?></td>
                 <td><span class="badge <?php echo e($document->status === 'published' ? 'badge-completed' : 'badge-cancelled'); ?>"><?php echo e(ucfirst($document->status)); ?></span></td>
                 <td class="actions-cell">
-                    <a class="btn btn-sm btn-view" href="<?php echo e(route('admin.documents.file', $document)); ?>" target="_blank" rel="noopener">View</a>
-                    <a class="btn btn-sm btn-light" href="<?php echo e(route('admin.documents.edit', $document)); ?>">Edit</a>
-                    <?php if(! $document->trashed()): ?>
-                        <form method="POST" action="<?php echo e(route('admin.documents.destroy', $document)); ?>" class="inline-form" onsubmit="return confirm('Archive this document from the active list?')">
+                    <div style="display: flex; gap: 4px; align-items: center; flex-wrap: wrap;">
+                        <a class="btn btn-sm btn-view" href="<?php echo e(route('admin.documents.file', $document)); ?>" target="_blank" rel="noopener">View</a>
+                        <a class="btn btn-sm btn-light" href="<?php echo e(route('admin.documents.edit', $document)); ?>">Edit</a>
+                        
+                        <?php if(! $document->trashed() && $document->status !== 'archived'): ?>
+                            <form method="POST" action="<?php echo e(route('admin.documents.destroy', $document)); ?>" class="inline-form" onsubmit="return confirm('Archive this document from the active list?')">
+                                <?php echo csrf_field(); ?> <?php echo method_field('DELETE'); ?>
+                                <button class="btn btn-sm btn-danger" type="submit">Archive</button>
+                            </form>
+                        <?php endif; ?>
+
+                        <form method="POST" action="<?php echo e(route('admin.documents.destroy', $document)); ?>" class="inline-form" onsubmit="return confirm('WARNING: This will permanently delete the record and its PDF file from the database. This cannot be undone. Proceed?')">
                             <?php echo csrf_field(); ?> <?php echo method_field('DELETE'); ?>
-                            <button class="btn btn-sm btn-danger" type="submit">Archive</button>
+                            <button class="btn btn-sm btn-danger" type="submit" style="background: #7f1d1d; border-color: #7f1d1d; color: #fff;">Delete</button>
                         </form>
-                    <?php endif; ?>
+                    </div>
                 </td>
             </tr>
         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

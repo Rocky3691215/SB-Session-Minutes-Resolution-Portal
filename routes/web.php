@@ -47,6 +47,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
     Route::get('/documents/{document}/edit', [AdminDocumentController::class, 'edit'])->name('documents.edit');
     Route::post('/documents/{document}', [AdminDocumentController::class, 'update'])->name('documents.update');
     Route::delete('/documents/{document}', [AdminDocumentController::class, 'destroy'])->name('documents.destroy');
+    Route::delete('/documents/{id}/destroy', [DocumentController::class, 'destroy'])->name('admin.documents.destroy');
     Route::get('/documents/{document}/file', [AdminDocumentController::class, 'file'])->name('documents.file');
 
     Route::get('/requests', [AdminRequestController::class, 'index'])->name('requests.index');

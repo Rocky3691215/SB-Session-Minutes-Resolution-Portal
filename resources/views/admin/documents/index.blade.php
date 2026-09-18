@@ -38,14 +38,22 @@
                 <td>{{ $document->is_public ? 'Public' : 'Private' }}</td>
                 <td><span class="badge {{ $document->status === 'published' ? 'badge-completed' : 'badge-cancelled' }}">{{ ucfirst($document->status) }}</span></td>
                 <td class="actions-cell">
-                    <a class="btn btn-sm btn-view" href="{{ route('admin.documents.file', $document) }}" target="_blank" rel="noopener">View</a>
-                    <a class="btn btn-sm btn-light" href="{{ route('admin.documents.edit', $document) }}">Edit</a>
-                    @if (! $document->trashed())
-                        <form method="POST" action="{{ route('admin.documents.destroy', $document) }}" class="inline-form" onsubmit="return confirm('Archive this document from the active list?')">
+                    <div style="display: flex; gap: 4px; align-items: center; flex-wrap: wrap;">
+                        <a class="btn btn-sm btn-view" href="{{ route('admin.documents.file', $document) }}" target="_blank" rel="noopener">View</a>
+                        <a class="btn btn-sm btn-light" href="{{ route('admin.documents.edit', $document) }}">Edit</a>
+                        
+                        @if (! $document->trashed() && $document->status !== 'archived')
+                            <form method="POST" action="{{ route('admin.documents.destroy', $document) }}" class="inline-form" onsubmit="return confirm('Archive this document from the active list?')">
+                                @csrf @method('DELETE')
+                                <button class="btn btn-sm btn-danger" type="submit">Archive</button>
+                            </form>
+                        @endif
+
+                        <form method="POST" action="{{ route('admin.documents.destroy', $document) }}" class="inline-form" onsubmit="return confirm('WARNING: This will permanently delete the record and its PDF file from the database. This cannot be undone. Proceed?')">
                             @csrf @method('DELETE')
-                            <button class="btn btn-sm btn-danger" type="submit">Archive</button>
+                            <button class="btn btn-sm btn-danger" type="submit" style="background: #7f1d1d; border-color: #7f1d1d; color: #fff;">Delete</button>
                         </form>
-                    @endif
+                    </div>
                 </td>
             </tr>
         @endforeach

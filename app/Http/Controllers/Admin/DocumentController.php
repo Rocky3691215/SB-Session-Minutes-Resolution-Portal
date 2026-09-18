@@ -149,13 +149,20 @@ class DocumentController extends Controller
             ->with('success', "{$document->document_id} was updated.");
     }
 
-    public function destroy(Document $document): RedirectResponse
+    public function destroy($id): RedirectResponse
     {
-        $document->update(['status' => 'archived', 'is_public' => false]);
-        $document->delete();
+        $document = Document::withTrashed()->findOrFail($id);
+
+        // Delete the physical PDF file if it exists
+        if ($document->file_path && Storage::disk('local')->exists($document->file_path)) {
+            Storage::disk('local')->delete($document->file_path);
+        }
+
+        // Permanently remove from database
+        $document->forceDelete();
 
         return redirect()->route('admin.documents.index')
-            ->with('success', "{$document->document_id} was archived from the active list.");
+            ->with('success', "{$document->document_id} was permanently deleted.");
     }
 
     public function file($id): BinaryFileResponse
