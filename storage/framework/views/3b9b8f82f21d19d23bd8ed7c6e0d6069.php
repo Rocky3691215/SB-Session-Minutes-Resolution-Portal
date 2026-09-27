@@ -10,9 +10,14 @@
 <body>
 <header class="site-header">
     <div class="container header-inner">
-        <div>
-            <a class="brand" href="<?php echo e(route('home')); ?>">SB Portal</a>
-            <span class="brand-subtitle">Bontoc Sangguniang Bayan Archives</span>
+        <div style="display: flex; align-items: center; gap: 12px;">
+            <a href="<?php echo e(route('home')); ?>">
+                <img src="<?php echo e(asset('images/logo.png')); ?>" alt="Bontoc Logo" style="height: 60px; width: auto; display: block;">
+            </a>
+            <div>
+                <a class="brand" href="<?php echo e(route('home')); ?>">SB Portal</a>
+                <span class="brand-subtitle">Bontoc Sangguniang Bayan Archives</span>
+            </div>
         </div>
         <?php if(!request()->routeIs('login')): ?>
             <nav class="top-nav" aria-label="Primary navigation">

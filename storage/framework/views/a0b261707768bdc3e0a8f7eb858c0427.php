@@ -3,6 +3,9 @@
 <?php $__env->startSection('content'); ?>
 <div class="card narrow-card" style="max-width: 400px; margin: 4rem auto;">
     <div style="text-align: center; margin-bottom: 2rem;">
+        <div style="margin-bottom: 1rem;">
+            <img src="<?php echo e(asset('images/logo.png')); ?>" alt="Municipality of Bontoc Logo" style="height:150px; width: auto; display: inline-block;">
+        </div>
         <h1>Admin</h1>
         <p class="muted">Sign in to access the administrator panel.</p>
     </div>

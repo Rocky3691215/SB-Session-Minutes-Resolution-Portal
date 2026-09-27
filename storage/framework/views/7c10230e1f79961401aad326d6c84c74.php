@@ -10,9 +10,14 @@
 <body>
 <header class="site-header">
     <div class="container header-inner">
-        <div>
-            <a class="brand" href="<?php echo e(route('admin.dashboard')); ?>">SB Portal</a>
-            <span class="brand-subtitle">Administrator Portal</span>
+        <div style="display: flex; align-items: center; gap: 12px;">
+            <a href="<?php echo e(route('admin.dashboard')); ?>">
+                <img src="<?php echo e(asset('images/logo.png')); ?>" alt="SB Logo" style="height: 60px; width: auto; display: block;">
+            </a>
+            <div>
+                <a class="brand" href="<?php echo e(route('admin.dashboard')); ?>">SB Portal</a>
+                <span class="brand-subtitle">Administrator Portal</span>
+            </div>
         </div>
     </div>
 </header>
